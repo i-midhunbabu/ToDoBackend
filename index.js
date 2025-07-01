@@ -50,14 +50,14 @@ app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    return res.status(401).json({ message: "Invalid credentials" });
+    return res.status(401).json({ message: "Invalid Credentials" });
   }
   const token = jwt.sign({ userId: user._id }, "secret", { expiresIn: "1h" });
   res.json({ token });
 });
 
 const authMiddleware = (req, res, next) => {
-  const token = req.header("Authorization")?.replace("Bearer", "");
+  const token = req.header("Authorization")?.replace("Bearer ", "");
   if (!token) return res.status(401).json({ message: "No Token" });
   try {
     const decoded = jwt.verify(token, "secret");
