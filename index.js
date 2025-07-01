@@ -1,13 +1,13 @@
 //Backend
-var express = require("express");
-var app = express();
-var mongoose = require("mongoose");
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
-var cors = require("cors");
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const cors = require("cors");
 require("dotenv").config();
-var PORT = process.env.PORT || 8080;
-var MONGOURL = process.env.MONGOURL;
+const PORT = process.env.PORT || 8080;
+const MONGOURL = process.env.MONGOURL;
 
 app.use(express.json());
 
@@ -111,4 +111,4 @@ app.patch("/tasks/:id/priority", authMiddleware, async (req, res) => {
   res.json(task);
 });
 
-app.listen(PORT, () => console.log("Server is running on Port:8080"));
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
