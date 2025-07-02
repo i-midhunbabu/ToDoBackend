@@ -22,12 +22,17 @@ mongoose.connect(MONGOURL, {
   useUnifiedTopology: true,
 });
 
+const tododb = mongoose.createConnection(MONGOURL + "/todo", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
 });
 
-const User = mongoose.model("User", userSchema);
+const User = tododb.model("User", userSchema);
 
 const taskSchema = new mongoose.Schema({
   text: String,
@@ -36,7 +41,7 @@ const taskSchema = new mongoose.Schema({
   userId: mongoose.Schema.Types.ObjectId,
 });
 
-const Task = mongoose.model("Task", taskSchema);
+const Task = tododb.model("Task", taskSchema);
 
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
